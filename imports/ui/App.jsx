@@ -1,9 +1,9 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
-import Header from './Header';
-import Tasks from './Tasks.container';
-import LoginForm from './LoginForm';
+import Header from './containers/header';
+import Tasks from './containers/tasks';
+import LoginForm from './components/loginForm';
 
 export const App = () => {
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '/imports/api/TasksCollection';
+import './Header.container.scss';
 
 export const Header = ({ authenticated }) => {
 

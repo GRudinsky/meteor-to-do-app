@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { TasksCollection } from '../api/TasksCollection';
+import { TasksCollection } from '/imports/api/TasksCollection';
+import './TaskForm.scss';
 
 export const TaskForm = () => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   
   const handleSubmit = e => {
     e.preventDefault();

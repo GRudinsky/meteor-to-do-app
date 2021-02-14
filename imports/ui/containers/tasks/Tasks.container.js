@@ -2,11 +2,13 @@ import React, { useState, Fragment } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '/imports/api/TasksCollection';
-import Task from './Task';
-import TaskForm from './TaskForm';
+import Task from '../../components/task';
+import TaskForm from '../../components/taskForm';
+import './Tasks.container.scss';
 
 
 export const Tasks = () => {
+  
   const [hideCompleted, setHideCompleted] = useState(false);
 
   const authenticated = useTracker(() => Meteor.user());
