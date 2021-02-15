@@ -1,18 +1,19 @@
 import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '/imports/api/TasksCollection';
+
+import { pendingOnlyFilter } from '/imports/utils/filters';
 import './Header.container.scss';
 
-export const Header = ({ authenticated }) => {
+export const Header = ({ user }) => {
 
   //TODO move to utils/filters
-  const hideCompletedFilter = { isChecked: { $ne: true } };
 
   const pendingTasksCount = useTracker(() =>
-    TasksCollection.find(hideCompletedFilter).count()
+    TasksCollection.find(pendingOnlyFilter(user)).count()
   );
 
-  const pendingTasksTitle = `${ authenticated && pendingTasksCount ? ` (${ pendingTasksCount })` : ''
+  const pendingTasksTitle = `${ user && pendingTasksCount ? ` (${ pendingTasksCount })` : ''
     }`;
 
   const handleLogout = () => localStorage.removeItem('Meteor.loginToken');
@@ -22,7 +23,7 @@ export const Header = ({ authenticated }) => {
       <div className="app-bar">
         <div className="app-header">
           <h1>ToDoo { pendingTasksTitle }</h1>
-          { authenticated &&
+          { user &&
             <button
               onClick={ handleLogout }
             >

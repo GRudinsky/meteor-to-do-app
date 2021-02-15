@@ -1,21 +1,28 @@
 import React, { useState, Fragment } from 'react';
-import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '/imports/api/TasksCollection';
 import Task from '../../components/task';
 import TaskForm from '../../components/taskForm';
+import { userFilter, pendingOnlyFilter } from '/imports/utils/filters';
 import './Tasks.container.scss';
 
 
-export const Tasks = () => {
+export const Tasks = ({ user }) => {
   
   const [hideCompleted, setHideCompleted] = useState(false);
 
-  const authenticated = useTracker(() => Meteor.user());
-
-  const hideCompletedFilter = { isChecked: { $ne: true } };
-
-  const tasks = useTracker(() => authenticated && TasksCollection.find(hideCompleted ? hideCompletedFilter : {}, { sort: { createdAt: -1 } }).fetch());
+  const tasks = useTracker(() => {
+    if (!user) {
+      return [];
+    }
+    return TasksCollection.find(
+      hideCompleted ? pendingOnlyFilter(user) : userFilter(user),
+      {
+        sort: { createdAt: -1 },
+      }
+    ).fetch();
+  }
+  );
 
   const toggleChecked = ({ _id, isChecked }) => {
     TasksCollection.update(_id, {
@@ -24,21 +31,24 @@ export const Tasks = () => {
       }
     });
   };
+
   const deleteTask = ({ _id }) => TasksCollection.remove(_id);
 
-  const filterUncheckedTasks = () => tasks.filter(task => !task.isChecked);
-  const filterCheckedTasks = () => tasks.filter(task => task.isChecked);
+  const uncheckedTasks = tasks.filter(task => !task.isChecked);
+  const checkedTasks = tasks.filter(task => task.isChecked);
 
   return (
     <Fragment>
-      <TaskForm />
+      <TaskForm 
+        user={ user }
+      />
       <div className="filter">
         <button onClick={ () => setHideCompleted(!hideCompleted) }>
           { hideCompleted ? 'Show All' : 'Hide Completed' }
         </button>
       </div>
       <ul className="tasks">
-        { filterUncheckedTasks().map(task =>
+        { uncheckedTasks.map(task =>
           <Task
             key={ task._id }
             task={ task }
@@ -51,7 +61,7 @@ export const Tasks = () => {
         <>
           <h2>Completed tasks</h2>
           <ul className="tasks">
-            { filterCheckedTasks().map(task =>
+            { checkedTasks.map(task =>
               <Task
                 key={ task._id }
                 task={ task }

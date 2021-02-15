@@ -7,16 +7,18 @@ import LoginForm from './components/loginForm';
 
 export const App = () => {
 
-  const authenticated = useTracker(() => Meteor.user());
+  const user = useTracker(() => Meteor.user());
 
   return (
     <div className="app">
       <Header 
-        authenticated={ authenticated }
+        user={ user }
       />
       <div className="main">
-        { authenticated 
-        ? <Tasks/>
+        { user 
+        ? <Tasks
+            user={ user }
+        />
         : <LoginForm/>
       }
       </div>

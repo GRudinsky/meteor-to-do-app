@@ -17,6 +17,7 @@ const insertTask = (taskText, user) => TasksCollection.insert(
   { 
     text: taskText,
     userId: user._id,
+    isChecked: false,
     createdAt: new Date(),
   }
   );
