@@ -3,6 +3,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '/imports/api/TasksCollection';
 import Task from '../../components/task';
 import TaskForm from '../../components/taskForm';
+import { Button } from '../../components/commonComponents';
 import { userFilter, pendingOnlyFilter } from '/imports/utils/filters';
 import './Tasks.container.scss';
 
@@ -43,9 +44,12 @@ export const Tasks = ({ user }) => {
         user={ user }
       />
       <div className="filter">
-        <button onClick={ () => setHideCompleted(!hideCompleted) }>
-          { hideCompleted ? 'Show All' : 'Hide Completed' }
-        </button>
+        <Button
+          id="buttonHideCompleted"
+          text={ hideCompleted ? 'Show All' : 'Hide Completed' }
+          clickHandler={ () => setHideCompleted(!hideCompleted) }
+          secondary
+        />
       </div>
       <ul className="tasks">
         { uncheckedTasks.map(task =>
@@ -59,7 +63,7 @@ export const Tasks = ({ user }) => {
       </ul>
       { !hideCompleted &&
         <>
-          <h2>Completed tasks</h2>
+          <h2>{ `Completed (${ checkedTasks.length })` }</h2>
           <ul className="tasks">
             { checkedTasks.map(task =>
               <Task

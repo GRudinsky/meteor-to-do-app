@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../../components/commonComponents';
 import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '/imports/api/TasksCollection';
 
@@ -24,11 +25,12 @@ export const Header = ({ user }) => {
         <div className="app-header">
           <h1>ToDoo { pendingTasksTitle }</h1>
           { user &&
-            <button
-              onClick={ handleLogout }
-            >
-              Logout
-            </button>
+            <Button
+              id="buttonLogout"
+              text="Logout"
+              clickHandler={ handleLogout }
+              primary
+            />
           }
         </div>
       </div>

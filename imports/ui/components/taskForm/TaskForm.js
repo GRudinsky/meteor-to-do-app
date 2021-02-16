@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TasksCollection } from '/imports/api/TasksCollection';
+import { Button } from '../commonComponents/';
 import './TaskForm.scss';
 
 export const TaskForm = ({ user }) => {
@@ -33,12 +34,11 @@ export const TaskForm = ({ user }) => {
         placeholder="Type to add new tasks"
         onChange={ e => setText(e.target.value) }
       />
-      <button 
-        type="submit"
+      <Button 
+        id="buttonSubmit"
+        text="Add task"
         disabled={ !text }
-      >
-        Add Task
-      </button>
+      />
     </form>
   );
 };

@@ -1,10 +1,6 @@
 .filter {
   display: flex;
   justify-content: center;
-
-  button {
-    background-color: #62807e;
-  }
 }
 
 .tasks {
@@ -22,11 +18,6 @@
 
     span {
       flex-grow: 1;
-    }
-
-    button {
-      justify-self: flex-end;
-      background-color: #ff3046;
     }
   }
 }
