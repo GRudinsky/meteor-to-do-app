@@ -1,16 +1,21 @@
 import { Meteor } from 'meteor/meteor';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, InputText } from '../commonComponents';
 import './LoginForm.scss';
 
 export const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  useEffect(() => setError(''), [password, username]);
+
+  const formatLoginError = (err) => err.error === 403
+    ? 'Incorrect username or password'
+    : err.reason;
 
   const submit = e => {
     e.preventDefault();
-
-    Meteor.loginWithPassword(username, password);
+    Meteor.loginWithPassword(username, password, err => setError(formatLoginError(err)));
   };
 
   return (
@@ -19,6 +24,10 @@ export const LoginForm = () => {
     >
       <div>
         <div>
+          <p id="errorText"
+            className="error-text"
+          >{ error }</p>
+
           <label htmlFor="username">Username</label>
           <InputText
             type="text"
@@ -45,9 +54,6 @@ export const LoginForm = () => {
             id="buttonLogin"
           />
         </div>
-     
-
-      
       </div>
     </form>
   );

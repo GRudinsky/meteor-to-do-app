@@ -6,6 +6,12 @@
   justify-content: center;
   align-items: center;
   
+  .error-text {
+    color: red;
+    min-height: 1.5em;
+    margin: 0;
+  }
+
   div {
     margin: 8px;
 
