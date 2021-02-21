@@ -11,16 +11,18 @@ export const App = () => {
 
   return (
     <div className="app">
-      <Header 
-        user={ user }
-      />
+      { user &&
+        <Header 
+          user={ user }
+        />
+      }
       <div className="main">
         { user 
-        ? <Tasks
-            user={ user }
-        />
-        : <LoginForm/>
-      }
+          ? <Tasks
+              user={ user }
+          />
+          : <LoginForm/>
+        }
       </div>
     </div>
   );

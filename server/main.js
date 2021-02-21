@@ -19,8 +19,8 @@ const insertTask = (taskText, user) => TasksCollection.insert(
     userId: user._id,
     isChecked: false,
     createdAt: new Date(),
-  }
-  );
+  });
+  
 const removeTasks = () => TasksCollection.remove({});
 
 

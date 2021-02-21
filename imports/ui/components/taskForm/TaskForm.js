@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TasksCollection } from '/imports/api/TasksCollection';
-import { Button } from '../commonComponents/';
+import { Button, InputText } from '../commonComponents/';
 import './TaskForm.scss';
 
 export const TaskForm = ({ user }) => {
@@ -18,8 +18,7 @@ export const TaskForm = ({ user }) => {
         createdAt: new Date(),
         isChecked: false,
         userId: user._id
-      }
-      );
+      });
     setText('');
   };
 
@@ -28,11 +27,12 @@ export const TaskForm = ({ user }) => {
       className="task-form"
       onSubmit = { handleSubmit }
     >
-      <input
+      <InputText 
+        id="inputTask"
         type="text"
-        value = { text }
+        value={ text }
         placeholder="Type to add new tasks"
-        onChange={ e => setText(e.target.value) }
+        changeHandler={ e => setText(e.target.value) }
       />
       <Button 
         id="buttonSubmit"

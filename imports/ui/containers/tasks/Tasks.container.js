@@ -39,18 +39,10 @@ export const Tasks = ({ user }) => {
   const checkedTasks = tasks.filter(task => task.isChecked);
 
   return (
-    <Fragment>
+    <div className="container">
       <TaskForm 
         user={ user }
       />
-      <div className="filter">
-        <Button
-          id="buttonHideCompleted"
-          text={ hideCompleted ? 'Show All' : 'Hide Completed' }
-          clickHandler={ () => setHideCompleted(!hideCompleted) }
-          secondary
-        />
-      </div>
       <ul className="tasks">
         { uncheckedTasks.map(task =>
           <Task
@@ -61,9 +53,21 @@ export const Tasks = ({ user }) => {
           />
         ) }
       </ul>
+      <div className="filter">
+        <div>
+          { !hideCompleted &&
+            <h2>{ `Completed (${ checkedTasks.length })` }</h2>
+          }
+        </div>
+        <Button
+          id="buttonHideCompleted"
+          text={ hideCompleted ? 'Show All' : 'Hide Completed' }
+          clickHandler={ () => setHideCompleted(!hideCompleted) }
+          secondary
+        />
+      </div>
       { !hideCompleted &&
         <>
-          <h2>{ `Completed (${ checkedTasks.length })` }</h2>
           <ul className="tasks">
             { checkedTasks.map(task =>
               <Task
@@ -76,7 +80,7 @@ export const Tasks = ({ user }) => {
           </ul>
         </>
       }
-    </Fragment>
+    </div>
   );
 };
 

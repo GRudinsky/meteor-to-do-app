@@ -12,21 +12,5 @@
     label {
       font-weight: bold;
     }
-
-    input {
-      flex-grow: 1;
-      box-sizing: border-box;
-      padding: 10px 6px;
-      background: transparent;
-      border: 1px solid #aaa;
-      width: 100%;
-      font-size: 1em;
-      margin-right: 16px;
-      margin-top: 4px;
-
-      &:focus {
-        outline: 0;
-      }
-    }
   }
 }

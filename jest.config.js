@@ -1,12 +1,9 @@
-// const { defaults } = require('jest-config');
 module.exports = {
   testURL: 'http://localhost:9999',
-  // testPathIgnorePatterns: [
-  //   '__mocks__/*'
-  // ],
   moduleNameMapper: {
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
-    "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js",
+    '^meteor/(.*)': '<rootDir>/.meteorMocks/index.js'
   },
   moduleFileExtensions: [
     'js',

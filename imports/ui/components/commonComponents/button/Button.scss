@@ -1,14 +1,18 @@
 @import '../../../../styles/colours.scss';
 
 .button {
-  font-size: 14px;
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
   min-width: 100px;
   height: 30px;
-  border-radius: 5px;
+  border-radius: 3px;
   color: $c-white;
   background-color: $c-black;
   border: 1px solid $c-black;
- 
+  box-shadow: 0 3px 3px $c-black;
+  cursor: pointer;
+
   &--secondary {
     color: $c-black;
     background-color: $c-white;

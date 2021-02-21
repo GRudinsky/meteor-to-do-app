@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
-import { Button } from '../commonComponents';
+import { Button, InputText } from '../commonComponents';
 import './LoginForm.scss';
 
 export const LoginForm = () => {
@@ -18,32 +18,36 @@ export const LoginForm = () => {
       className="login-form"
     >
       <div>
-        <label htmlFor="username">Username</label>
+        <div>
+          <label htmlFor="username">Username</label>
+          <InputText
+            type="text"
+            placeholder="Username"
+            name="username"
+            required
+            changeHandler={ e => setUsername(e.target.value) }
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <InputText
+            type="password"
+            placeholder="Password"
+            name="password"
+            required
+            changeHandler={ e => setPassword(e.target.value) }
+          />
+        </div>
+        <div>
+          <Button
+            text="Login"
+            primary
+            id="buttonLogin"
+          />
+        </div>
+     
 
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          required
-          onChange={ e => setUsername(e.target.value) }
-        />
-
-        <label htmlFor="password">Password</label>
-
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          required
-          onChange={ e => setPassword(e.target.value) }
-        />
-
-        { /* <button type="submit">Log In</button> */ }
-        <Button 
-          text="Login"
-          primary
-          id="buttonLogin"
-        />
+      
       </div>
     </form>
   );

@@ -1,23 +1,29 @@
-.filter {
-  display: flex;
-  justify-content: center;
-}
+.container {
+  padding: 0 16px;
 
-.tasks {
-  list-style-type: none;
-  padding-inline-start: 0;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-block-start: 0;
-  margin-block-end: 0;
+  .tasks {
+    list-style-type: none;
+    padding-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
 
-  li {
-    display: flex;
-    padding: 16px;
-    border-bottom: #eee solid 1px;
+    li {
+      display: flex;
+      padding: 16px;
+      border-bottom: #eee solid 1px;
 
-    span {
-      flex-grow: 1;
+      span {
+        flex-grow: 1;
+      }
     }
   }
+
+  .filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+  }
 }
+
+

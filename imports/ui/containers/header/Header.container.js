@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { Button } from '../../components/commonComponents';
 import { useTracker } from 'meteor/react-meteor-data';
@@ -13,11 +14,8 @@ export const Header = ({ user }) => {
   const pendingTasksCount = useTracker(() =>
     TasksCollection.find(pendingOnlyFilter(user)).count()
   );
-
   const pendingTasksTitle = `${ user && pendingTasksCount ? ` (${ pendingTasksCount })` : ''
-    }`;
-
-  const handleLogout = () => localStorage.removeItem('Meteor.loginToken');
+  }`;
 
   return (
     <header>
@@ -25,12 +23,15 @@ export const Header = ({ user }) => {
         <div className="app-header">
           <h1>ToDoo { pendingTasksTitle }</h1>
           { user &&
-            <Button
-              id="buttonLogout"
-              text="Logout"
-              clickHandler={ handleLogout }
-              primary
-            />
+            <div className="user-details">
+              <h2>{ user.username }</h2>
+              <Button
+                id="buttonLogout"
+                text="Logout"
+                clickHandler={ () => Meteor.logout() }
+                primary
+              />
+            </div>
           }
         </div>
       </div>
