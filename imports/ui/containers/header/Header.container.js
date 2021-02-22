@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { Button } from '../../components/commonComponents';
 import { useTracker } from 'meteor/react-meteor-data';
-import { TasksCollection } from '/imports/api/TasksCollection';
+import { Button } from '../../components/commonComponents';
+import { TasksCollection } from '/imports/db/TasksCollection';
 
 import { pendingOnlyFilter } from '/imports/utils/filters';
 import './Header.container.scss';
@@ -21,7 +21,7 @@ export const Header = ({ user }) => {
     <header>
       <div className="app-bar">
         <div className="app-header">
-          <h1>ToDoo { pendingTasksTitle }</h1>
+          <h1>ToDooDly { pendingTasksTitle }</h1>
           { user &&
             <div className="user-details">
               <h2>{ user.username }</h2>

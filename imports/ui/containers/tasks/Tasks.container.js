@@ -1,9 +1,10 @@
-import React, { useState, Fragment } from 'react';
+import { Meteor } from 'meteor/meteor';
+import React, { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
-import { TasksCollection } from '/imports/api/TasksCollection';
+import { TasksCollection } from '/imports/db/TasksCollection';
 import Task from '../../components/task';
 import TaskForm from '../../components/taskForm';
-import { Button } from '../../components/commonComponents';
+import { Button, Loader } from '../../components/commonComponents';
 import { userFilter, pendingOnlyFilter } from '/imports/utils/filters';
 import './Tasks.container.scss';
 
@@ -12,28 +13,31 @@ export const Tasks = ({ user }) => {
   
   const [hideCompleted, setHideCompleted] = useState(false);
 
-  const tasks = useTracker(() => {
-    if (!user) {
-      return [];
+  const { tasks, isLoading } = useTracker(() => {
+    const noDataAvailable = { tasks:[], pendingTasksCount:0 };
+    if (!Meteor.user()) {
+      return noDataAvailable;
     }
-    return TasksCollection.find(
-      hideCompleted ? pendingOnlyFilter(user) : userFilter(user),
+
+    const handler = Meteor.subscribe('tasks');
+    if (!handler.ready()) {
+      return { ...noDataAvailable, isLoading: true };
+    }
+    const tasks = TasksCollection.find(
+      hideCompleted ? pendingOnlyFilter : userFilter,
       {
         sort: { createdAt: -1 },
       }
     ).fetch();
-  }
-  );
+
+    return { tasks };
+  });
 
   const toggleChecked = ({ _id, isChecked }) => {
-    TasksCollection.update(_id, {
-      $set: {
-        isChecked: !isChecked
-      }
-    });
+    Meteor.call('tasks.setIsChecked', _id, !isChecked);
   };
 
-  const deleteTask = ({ _id }) => TasksCollection.remove(_id);
+  const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id);
 
   const uncheckedTasks = tasks.filter(task => !task.isChecked);
   const checkedTasks = tasks.filter(task => task.isChecked);
@@ -43,6 +47,7 @@ export const Tasks = ({ user }) => {
       <TaskForm 
         user={ user }
       />
+      { isLoading && <Loader/> }
       <ul className="tasks">
         { uncheckedTasks.map(task =>
           <Task

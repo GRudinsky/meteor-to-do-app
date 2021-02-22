@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import { TasksCollection } from '/imports/api/TasksCollection';
+import { TasksCollection } from '/imports/db/TasksCollection';
+import '/imports/api/tasksPublications';
+import '/imports/api/taskMethods';
 
 //TODO move flushDB and seedDB to package.json script
 const flushTasks = false;
